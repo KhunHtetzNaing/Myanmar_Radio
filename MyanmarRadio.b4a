@@ -1,0 +1,270 @@
+﻿Version=6.8
+NumberOfModules=7
+Module1=Cherry
+Module2=Mandalay
+Module3=MRTV
+Module4=Padamyar
+Module5=Shwe
+Module6=Thitsar
+Module7=TineyinThar
+Build1=Default,com.htetznaing.mmradio
+ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: https://www.b4x.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="5" android:targetSdkVersion="19"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~'End of default text.~\n~~\n~'************ Google Play Services Base ************~\n~AddApplicationText(~\n~   <activity android:name="com.google.android.gms.common.api.GoogleApiActivity"~\n~  android:theme="@android:style/Theme.Translucent.NoTitleBar"~\n~  android:exported="false"/>~\n~    <meta-data~\n~  android:name="com.google.android.gms.version"~\n~  android:value="@integer/google_play_services_version" />~\n~)~\n~'************ Google Play Services Base (end) ************~\n~'************ Firebase Ads ************~\n~AddApplicationText(~\n~  <activity~\n~  android:name="com.google.android.gms.ads.AdActivity"~\n~  android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"~\n~  android:theme="@android:style/Theme.Translucent" />~\n~  <activity android:name="com.google.android.gms.ads.purchase.InAppPurchaseActivity"~\n~  android:theme="@style/Theme.IAPTheme"/>~\n~)~\n~'************ Firebase Ads (end) ************
+IconFile=
+NumberOfFiles=10
+File1=Cherry
+File2=fb.png
+File3=Mandalay
+File4=MRTV
+File5=Padamyar
+File6=radio.png
+File7=share.png
+File8=Shwe
+File9=ThitsarParami
+File10=TineYinThar
+NumberOfLibraries=4
+Library1=core
+Library2=clipboard
+Library3=firebaseadmob
+Library4=iconbutton
+@EndOfDesignText@
+#Region  Project Attributes 
+	#ApplicationLabel: Myanmar Radio
+	#VersionCode: 1
+	#VersionName: 1.0
+	'SupportedOrientations possible values: unspecified, landscape or portrait.
+	#SupportedOrientations: unspecified
+	#CanInstallToExternalStorage: False
+#End Region
+
+#Region  Activity Attributes 
+	#FullScreen: False
+	#IncludeTitle: True
+#End Region
+
+Sub Process_Globals
+	'These global variables will be declared once when the application starts.
+	'These variables can be accessed from all modules.
+	Dim ad As Timer
+End Sub
+
+Sub Globals
+	'These global variables will be redeclared each time the activity is created.
+	'These variables can only be accessed from this module.
+	Dim B As AdView
+	Dim I As InterstitialAd
+	Dim b1,b2,b3,b4,b5,b6,b7 As IconButton
+	Dim b1b As BitmapDrawable
+	Dim ab As ColorDrawable
+	dim lb as Label
+End Sub
+
+Sub Activity_Create(FirstTime As Boolean)
+Activity.Color = Colors.White
+ab.Initialize(Colors.Black,15)
+b1b.Initialize(LoadBitmap(File.DirAssets,"radio.png"))
+	b1.Initialize("mv")
+b1.Text = "MRTV"
+b1.IconPadding = 20
+b1.setIcon(True,b1b)
+b1.Background = ab
+Activity.AddView(b1, 50%x - 125dip, 2%y,250dip,50dip)
+	
+	b2.Initialize("se")
+	b2.Text = "Shwe FM"
+	b2.IconPadding = 20
+	b2.setIcon(True,b1b)
+	b2.Background = ab
+	Activity.AddView(b2,50%x - 125dip,50dip+3%y,250dip,50dip)
+	
+	b3.Initialize("c")
+	b3.Text = "Cherry FM"
+	b3.IconPadding = 20
+	b3.setIcon(True,b1b)
+	b3.Background = ab
+	Activity.AddView(b3,50%x - 125dip,50dip+50dip+4%y,250dip,50dip)
+	
+	b4.Initialize("pdm")
+	b4.Text = "Padamyar FM"
+	b4.IconPadding = 20
+	b4.setIcon(True,b1b)
+	b4.Background = ab
+	Activity.AddView(b4,50%x - 125dip,50dip+ 50dip+50dip+5%y,250dip,50dip)
+	
+	b5.Initialize("m")
+	b5.Text = "Mandalay FM"
+	b5.IconPadding = 20
+	b5.setIcon(True,b1b)
+	b5.Background = ab
+	Activity.AddView(b5,50%x - 125dip,50dip+ 50dip+50dip+50dip+6%y,250dip,50dip)
+	
+	b6.Initialize("tyt")
+	b6.Text = "Tine Yin Thar"
+	b6.IconPadding = 20
+	b6.setIcon(True,b1b)
+	b6.Background = ab
+	Activity.AddView(b6,50%x - 125dip,50dip+ 50dip+50dip+50dip+50dip+7%y,250dip,50dip)
+	
+	b7.Initialize("ts")
+	b7.Text = "Thitsar Parami FM"
+	b7.IconPadding = 20
+	b7.setIcon(True,b1b)
+	b7.Background = ab
+	Activity.AddView(b7,50%x - 125dip,50dip+ 50dip+50dip+50dip+50dip+50dip+8%y,250dip,50dip)
+	
+	'Banner ADs
+	B.Initialize2("B","ca-app-pub-4173348573252986/4119293753",B.SIZE_SMART_BANNER)
+	Dim height As Int
+	If GetDeviceLayoutValues.ApproximateScreenSize < 6 Then
+		If 100%x > 100%y Then height = 32dip Else height = 50dip
+	Else
+		height = 90dip
+	End If
+	Activity.AddView(B, 0dip, 100%y - height, 100%x, height)
+	B.LoadAd
+	Log(B)
+	
+	'Interstitial Ads
+	I.Initialize("Interstitial","ca-app-pub-4173348573252986/5596026959")
+	I.LoadAd
+	
+ad.Initialize("ad",100)
+ad.Enabled = False
+
+Activity.AddMenuItem3("Share","share",LoadBitmap(File.DirAssets,"share.png"),True)
+
+lb.Initialize("lb")
+lb.Text = "Developed By Myanmar Android App"
+lb.TextColor = Colors.Magenta
+lb.Gravity = Gravity.CENTER
+Activity.AddView(lb,0%x,80%y,100%x,10%y)
+End Sub
+
+Sub c_Click
+	StartActivity(Cherry)
+	ad.Enabled = True
+End Sub
+
+Sub m_Click
+	StartActivity(Mandalay)
+	ad.Enabled = True
+End Sub
+
+Sub mv_Click
+	StartActivity(MRTV)
+	ad.Enabled = True
+End Sub
+
+Sub pdm_Click
+	StartActivity(Padamyar)
+	ad.Enabled = True
+End Sub
+
+Sub Se_Click
+	StartActivity(Shwe)
+	ad.Enabled = True
+End Sub
+
+Sub ts_Click
+	StartActivity(Thitsar)
+	ad.Enabled = True
+End Sub
+
+Sub tyt_Click
+	StartActivity(TineyinThar)
+	ad.Enabled = True
+End Sub
+
+'Interstitial Ads
+Sub I_AdClosed
+	I.LoadAd
+End Sub
+
+Sub I_ReceiveAd
+	Log("I Received")
+End Sub
+
+Sub I_FailedToReceiveAd (ErrorCode As String)
+	Log("I not Received - " &"Error Code: "&ErrorCode)
+	I.LoadAd
+End Sub
+
+Sub I_adopened
+	Log("I Opened")
+End Sub
+
+Sub Activity_Click
+	If I.Ready Then I.Show
+End Sub
+
+Sub ad_Tick
+	If I.Ready Then I.Show Else I.LoadAd
+	ad.Enabled = False
+End Sub
+
+Sub Activity_Resume
+'N.Resume
+End Sub
+
+Sub Activity_Pause (UserClosed As Boolean)
+	'N.Pause
+End Sub
+
+Sub share_Click
+	Dim ShareIt As Intent
+	Dim copy As BClipboard
+	copy.clrText
+	copy.setText("မိမိတို႔ဖုန္းကေနတဆင့္ ျမန္မာေရဒီယိုလိုင္းမ်ား 'အခမဲ့' နားဆင္နိုင္တဲ့ Myanmar Radio App ေလးပါ။"&CRLF& "ပါဝင္ေသာ ေရဒီယိုလိုင္းမ်ားမွာ..." &CRLF& "ခ်ယ္ရီ FM" &CRLF& "မႏၲေလး FM" &CRLF& "ေရႊ FM" &CRLF& "ပတၱျမား FM" &CRLF& "MRTV" &CRLF& "သစၥာပါရမီ" &CRLF& "တိုင္းရင္းသား" &CRLF& "Download Free at here : http://www.myanmarandroidapp.com/search?q=Myanmar+Radio+App")
+	ShareIt.Initialize (ShareIt.ACTION_SEND,"")
+	ShareIt.SetType ("text/plain")
+	ShareIt.PutExtra ("android.intent.extra.TEXT",copy.getText)
+	ShareIt.PutExtra ("android.intent.extra.SUBJECT","Get Free!!")
+	ShareIt.WrapAsIntentChooser("Share App Via...")
+	StartActivity (ShareIt)
+End Sub
+
+Sub lb_Click
+	Try
+ 
+		Dim Facebook As Intent
+ 
+		Facebook.Initialize(Facebook.ACTION_VIEW, "fb://page/627699334104477")
+		StartActivity(Facebook)
+ 
+	Catch
+ 
+		Dim ii As Intent
+		ii.Initialize(ii.ACTION_VIEW, "https://m.facebook.com/MmFreeAndroidApps")
+ 
+		StartActivity(ii)
+ 
+	End Try
+End Sub
+
+
+Sub Activity_KeyPress (KeyCode As Int) As Boolean
+	Dim Answ As Int
+	If KeyCode = KeyCodes.KEYCODE_BACK Then
+		Answ = Msgbox2("If you want to get new updates on  Facebook? Please Like " &CRLF & "Myanmar Android Apps Page!","Attention!", "Yes", "", "No",LoadBitmap(File.DirAssets,"fb.png" ))
+		If Answ = DialogResponse.NEGATIVE Then
+			Return False
+		End If
+	End If
+	If Answ = DialogResponse.POSITIVE Then
+		Try
+ 
+			Dim Facebook As Intent
+ 
+			Facebook.Initialize(Facebook.ACTION_VIEW, "fb://page/627699334104477")
+			StartActivity(Facebook)
+ 
+		Catch
+ 
+			Dim ii As Intent
+			ii.Initialize(ii.ACTION_VIEW, "https://m.facebook.com/MmFreeAndroidApps")
+ 
+			StartActivity(ii)
+ 
+		End Try
+		Return False
+	End If
+End Sub
